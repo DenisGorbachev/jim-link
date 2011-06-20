@@ -1,0 +1,25 @@
+dev:
+  doctrine:
+    param:
+      classname: DebugPDO
+      debug:
+        realmemoryusage: true
+        details:
+          time: { enabled: true }
+          slow: { enabled: true, threshold: 0.1 }
+          mem: { enabled: true }
+          mempeak: { enabled: true }
+          memdelta: { enabled: true }
+test:
+  doctrine:
+    param:
+      classname: DebugPDO
+      dsn: 'mysql:host=localhost;dbname=jim_link_test'
+all:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:host=localhost;dbname=jim_link'
+      username: root
+      password: rootoor
+      encoding: utf8
