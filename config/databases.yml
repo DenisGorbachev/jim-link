@@ -23,3 +23,5 @@ all:
       username: root
       password: rootoor
       encoding: utf8
+      attributes:
+        quote_identifier: true

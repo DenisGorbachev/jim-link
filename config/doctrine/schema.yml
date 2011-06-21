@@ -1,0 +1,42 @@
+options:
+  type: INNODB
+  collate: utf8_unicode_ci
+  charset: utf8
+Link:
+  actAs:
+    Timestampable:
+      updated:
+        disabled: true
+  columns:
+    hash:
+      type: string(32)
+      fixed: true
+      notnull: true
+      unique: true
+    url:
+      type: string(1024)
+      notnull: true
+  relations:
+    Symlinks:
+      type: many
+      class: Symlink
+      local: id
+      foreign: link_id
+Symlink:
+  actAs:
+    Timestampable:
+      updated:
+        disabled: true
+  columns:
+    link_id:
+      type: integer(8)
+    key:
+      type: string(9)
+      notnull: true
+  relations:
+    Link:
+      local: link_id
+      foreign: id
+  indexes:
+    key:
+      fields: [key]

@@ -1,2 +1,4 @@
 /lib/vendor/symfony/
 /nbproject/
+/cache/
+/log/
