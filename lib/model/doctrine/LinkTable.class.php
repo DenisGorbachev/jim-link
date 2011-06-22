@@ -30,7 +30,7 @@ class LinkTable extends Doctrine_Table
     /**
      * Creates a short link
      * @param string $url
-     * @return Link
+     * @return Symlink
      */
     public function createSymlink($url)
     {
@@ -49,6 +49,6 @@ class LinkTable extends Doctrine_Table
       }
       // explicit symlink saving is made to create a key
       $symlink->save();
-      return $link;
+      return $symlink;
     }
 }

@@ -2,7 +2,7 @@
 
 include __DIR__.'/../bootstrap/doctrine.php';
 
-$t = new lime_test(9, new lime_output_color());
+$t = new lime_test(8, new lime_output_color());
 
 $linkTable = Doctrine::getTable('Link');
 
@@ -23,16 +23,13 @@ $googleLink->refresh();
 $t->is($googleLink->hash, '545f72bf584a6ce29a8f1ae7ef422319', 'the hash was modified');
 
 $t->comment('create symlinks');
-$yandexLink = $linkTable->createSymlink('http://yandex.ru');
-$t->ok($yandexLink, 'yandex link is created');
-$yandexSymlinks = $yandexLink->Symlinks;
-$t->is(count($yandexSymlinks), 1, 'one symlink is created');
-$firstYandexSymlink = $yandexSymlinks[0];
-/* @var $firstYandexSymlink Symlink */
+$firstYandexSymlink = $linkTable->createSymlink('http://yandex.ru');
+$t->ok($firstYandexSymlink, 'yandex symlink is created');
 $firstYandexSymlink->refresh();
 $t->ok(strlen($firstYandexSymlink->key), 'symlink key is exists');
 $t->comment('create second symlink');
-$yandexLink = $linkTable->createSymlink('http://yandex.ru');
-$yandexSymlinks = $yandexLink->Symlinks;
+$secondYandexLink = $linkTable->createSymlink('http://yandex.ru');
+/* @var $secondYandexLink Symlink */
+$yandexSymlinks = $secondYandexLink->Link->Symlinks;
 $t->is(count($yandexSymlinks), 2, 'two symlinks are exist');
 $t->is($yandexSymlinks[0]->key, $firstYandexSymlink->key, 'first keys are equal');
