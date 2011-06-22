@@ -29,13 +29,13 @@ abstract class BaseLink extends sfDoctrineRecord
         $this->hasColumn('hash', 'string', 32, array(
              'type' => 'string',
              'fixed' => 1,
-             'notnull' => true,
              'unique' => true,
+             'readonly' => true,
              'length' => 32,
              ));
         $this->hasColumn('url', 'string', 1024, array(
              'type' => 'string',
-             'notnull' => true,
+             'notblank' => true,
              'length' => 1024,
              ));
 

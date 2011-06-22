@@ -23,7 +23,7 @@ abstract class BaseLinkForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'hash'       => new sfValidatorString(array('max_length' => 32)),
+      'hash'       => new sfValidatorString(array('max_length' => 32, 'required' => false)),
       'url'        => new sfValidatorString(array('max_length' => 1024)),
       'created_at' => new sfValidatorDateTime(),
     ));

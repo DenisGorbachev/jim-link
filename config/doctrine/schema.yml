@@ -11,11 +11,11 @@ Link:
     hash:
       type: string(32)
       fixed: true
-      notnull: true
       unique: true
+      readonly: true
     url:
       type: string(1024)
-      notnull: true
+      notblank: true
   relations:
     Symlinks:
       type: many

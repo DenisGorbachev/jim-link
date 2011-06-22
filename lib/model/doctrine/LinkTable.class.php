@@ -26,4 +26,29 @@ class LinkTable extends Doctrine_Table
     {
       return $this->findOneByHash(md5($url));
     }
+
+    /**
+     * Creates a short link
+     * @param string $url
+     * @return Link
+     */
+    public function createSymlink($url)
+    {
+      $symlink = new Symlink();
+      $link = new Link();
+      $link->url = $url;
+      $link->Symlinks[] = $symlink;
+      try {
+        $link->save();
+      }
+      catch (Doctrine_Connection_Exception $e) {
+        $link = $this->findOneByUrl($url);
+        $link->Symlinks[] = $symlink;
+        // link is saved for binding with symlink
+        $link->save();
+      }
+      // explicit symlink saving is made to create a key
+      $symlink->save();
+      return $link;
+    }
 }

@@ -16,7 +16,8 @@ class Link extends BaseLink
    * Set url hash before insert
    * @param Doctrine_Event $event
    */
-  public function preInsert($event) {
+  public function preInsert($event)
+  {
     $link = $event->getInvoker();
     /* @var $link Link */
     $link->hash = md5($link->url);
@@ -26,7 +27,8 @@ class Link extends BaseLink
    * Reset url hash before update
    * @param Doctrine_Event $event
    */
-  public function preUpdate($event) {
+  public function preUpdate($event)
+  {
     $link = $event->getInvoker();
     /* @var $link Link */
     $modified = $link->getModified();
