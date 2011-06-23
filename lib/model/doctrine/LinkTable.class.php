@@ -44,11 +44,8 @@ class LinkTable extends Doctrine_Table
       catch (Doctrine_Connection_Exception $e) {
         $link = $this->findOneByUrl($url);
         $link->Symlinks[] = $symlink;
-        // link is saved for binding with symlink
         $link->save();
       }
-      // explicit symlink saving is made to create a key
-      $symlink->save();
       return $symlink;
     }
 }

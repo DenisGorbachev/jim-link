@@ -3,14 +3,18 @@
 
 # default rules
 homepage:
-  url:   /
-  param: { module: default, action: index }
+  url: /
+  param: { module: entry, action: index }
+
+redirect:
+  url: /:short
+  param: { module: entry, action: redirect }
 
 # generic rules
 # please, remove them by adding more specific rules
-default_index:
-  url:   /:module
-  param: { action: index }
-
-default:
-  url:   /:module/:action/*
+#default_index:
+#  url:   /:module
+#  param: { action: index }
+#
+#default:
+#  url:   /:module/:action/*

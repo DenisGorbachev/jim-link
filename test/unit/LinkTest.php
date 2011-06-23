@@ -26,10 +26,10 @@ $t->comment('create symlinks');
 $firstYandexSymlink = $linkTable->createSymlink('http://yandex.ru');
 $t->ok($firstYandexSymlink, 'yandex symlink is created');
 $firstYandexSymlink->refresh();
-$t->ok(strlen($firstYandexSymlink->key), 'symlink key is exists');
+$t->ok(strlen($firstYandexSymlink->id), 'symlink key is exists');
 $t->comment('create second symlink');
 $secondYandexLink = $linkTable->createSymlink('http://yandex.ru');
 /* @var $secondYandexLink Symlink */
 $yandexSymlinks = $secondYandexLink->Link->Symlinks;
 $t->is(count($yandexSymlinks), 2, 'two symlinks are exist');
-$t->is($yandexSymlinks[0]->key, $firstYandexSymlink->key, 'first keys are equal');
+$t->is($yandexSymlinks[0]->id, $firstYandexSymlink->id, 'first keys are equal');

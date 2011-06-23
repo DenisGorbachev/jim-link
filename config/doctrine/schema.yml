@@ -22,21 +22,28 @@ Link:
       class: Symlink
       local: id
       foreign: link_id
+SymlinkResizer:
+  actAs:
+    Timestampable:
+      updated:
+        disabled: true
 Symlink:
   actAs:
     Timestampable:
       updated:
         disabled: true
   columns:
+    id:
+      type: string(9)
+      primary: true
     link_id:
       type: integer(8)
-    key:
-      type: string(9)
-      notnull: true
   relations:
     Link:
       local: link_id
       foreign: id
   indexes:
-    key:
-      fields: [key]
+    fresh:
+      fields:
+        created_at:
+          sorting: DESC

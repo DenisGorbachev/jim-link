@@ -25,7 +25,7 @@ test:
 all:
   .settings:
     # Form security secret (CSRF protection)
-    csrf_secret:            1fe4fa54d7641d33ca9cb58b6c5ec0fbbc4a2b51
+    csrf_secret:            false
 
     # Output escaping settings
     escaping_strategy:      true
@@ -33,3 +33,11 @@ all:
 
     # Enable the database manager
     use_database:           true
+
+    # Helpers
+    standard_helpers: [I18N]
+
+    # Enable localization
+    charset: utf-8
+    default_culture: en_US
+    i18n: true

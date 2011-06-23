@@ -16,10 +16,12 @@ class Symlink extends BaseSymlink
    * Symlink key is created after primary key
    * @param Doctrine_Event $event
    */
-  public function postInsert($event)
+  public function preInsert($event)
   {
     $symlink = $event->getInvoker();
     /* @var $symlink Symlink */
-    $symlink->key = base_convert($this->id, 10, 36).base_convert(mt_rand(36, 1295), 10, 36);
+    $resizer = new SymlinkResizer();
+    $resizer->save();
+    $symlink->id = base_convert($resizer->id, 10, 36).base_convert(mt_rand(36, 1295), 10, 36);
   }
 }

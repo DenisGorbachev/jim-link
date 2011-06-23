@@ -1,2 +1,3 @@
 CREATE TABLE `link` (`id` BIGINT AUTO_INCREMENT, `hash` CHAR(32) UNIQUE, `url` TEXT, `created_at` DATETIME NOT NULL, PRIMARY KEY(`id`)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
-CREATE TABLE `symlink` (`id` BIGINT AUTO_INCREMENT, `link_id` BIGINT, `key` VARCHAR(9) NOT NULL, `created_at` DATETIME NOT NULL, INDEX `key_idx` (`key`), INDEX `link_id_idx` (`link_id`), PRIMARY KEY(`id`)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
+CREATE TABLE `symlink` (`id` VARCHAR(9), `link_id` BIGINT, `created_at` DATETIME NOT NULL, INDEX `fresh_idx` (`created_at` DESC), INDEX `link_id_idx` (`link_id`), PRIMARY KEY(`id`)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
+CREATE TABLE `symlink_resizer` (`id` BIGINT AUTO_INCREMENT, `created_at` DATETIME NOT NULL, PRIMARY KEY(`id`)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = INNODB;
