@@ -46,8 +46,8 @@ class Link extends BaseLink
   protected function validate()
   {
     if (filter_var($this->url, FILTER_VALIDATE_URL)) {
-      $fragments = parse_url($this->url);
       if (isset($_SERVER['HTTP_HOST'])) {
+        $fragments = parse_url($this->url);
         $input = $fragments['host'];
         $origin = $_SERVER['HTTP_HOST'];
         if (false !== strpos($origin, $input) || false !== strpos($input, $origin)) {
