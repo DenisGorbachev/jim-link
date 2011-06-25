@@ -18,11 +18,17 @@ class entryActions extends sfActionsExt
   public function executeIndex(sfWebRequest $request)
   {
     if ($request->isMethod(sfRequest::POST) && isset($request['url'])) {
-      $symlink = Doctrine::getTable('Link')->createSymlink($request['url']);
-      $this->short = $symlink->id;
+      try {
+        $symlink = Doctrine::getTable('Link')->createSymlink($request['url']);
+        $this->shrt = $this->getController()->genUrl('@redirect?short='.$symlink->id, true);
+      }
+      catch (Doctrine_Validator_Exception $e) {
+        $this->error = 'Bad URL format';
+      }
       if ($request->isXmlHttpRequest()) {
         return $this->outputJSON();
       }
+      $this->url = $request['url'];
     }
     $this->symlinks = Doctrine::getTable('Symlink')->getFresh(sfConfig::get('app_symlink_list_size', 20));
   }

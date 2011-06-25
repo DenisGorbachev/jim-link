@@ -29,6 +29,11 @@ dev:
       delivery_strategy: none
 
 all:
+  storage:
+    class: sfSessionStorage
+    param:
+      auto_start: false
+      
   routing:
     class: sfPatternRouting
     param:

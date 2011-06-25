@@ -2,9 +2,10 @@
 
 include __DIR__.'/../bootstrap/doctrine.php';
 
-$t = new lime_test(8, new lime_output_color());
+$t = new lime_test(14, new lime_output_color());
 
 $linkTable = Doctrine::getTable('Link');
+/* @var $linkTable LinkTable */
 
 $t->comment('update readonly hash');
 $googleLink = $linkTable->findOneByUrl('http://www.google.ru');
@@ -33,3 +34,33 @@ $secondYandexLink = $linkTable->createSymlink('http://yandex.ru');
 $yandexSymlinks = $secondYandexLink->Link->Symlinks;
 $t->is(count($yandexSymlinks), 2, 'two symlinks are exist');
 $t->is($yandexSymlinks[0]->id, $firstYandexSymlink->id, 'first keys are equal');
+
+$t->comment('check validation');
+$_SERVER['HTTP_HOST'] = 'jim-link';
+try {
+  $linkTable->createSymlink('http://jim-link/ololo');
+  $t->fail('That is already short link');
+}
+catch (Doctrine_Validator_Exception $e) {
+  $t->pass($e->getMessage());
+}
+try {
+  $linkTable->createSymlink('www.atata.com');
+  $t->fail('Url is invalid');
+}
+catch (Doctrine_Validator_Exception $e) {
+  $t->pass($e->getMessage());
+}
+try {
+  $linkTable->createSymlink('');
+  $t->fail('Url is empty');
+}
+catch (Doctrine_Validator_Exception $e) {
+  $t->pass($e->getMessage());
+}
+
+$t->comment('get fresh list');
+$symlinks = Doctrine::getTable('Symlink')->getFresh(5);
+$t->is(count($symlinks), 2, 'four symlinks');
+$t->is(array_keys($symlinks[0]), array('id', 'link_id', 'created_at', 'url'), 'format is valid');
+$t->is($symlinks[0]['link_id'], $symlinks[1]['link_id'], 'two symlinks of same url');

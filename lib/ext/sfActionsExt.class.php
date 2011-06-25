@@ -11,7 +11,7 @@ class sfActionsExt extends sfActions
    * Output JSON
    * @return string
    */
-  static public function outputJSON()
+  public function outputJSON()
   {
     $result = json_encode($this->getVarHolder()->getAll());
     if (isset($this->request['callback']))

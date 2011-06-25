@@ -30,7 +30,6 @@ abstract class BaseLink extends sfDoctrineRecord
              'type' => 'string',
              'fixed' => 1,
              'unique' => true,
-             'readonly' => true,
              'length' => 32,
              ));
         $this->hasColumn('url', 'string', 1024, array(

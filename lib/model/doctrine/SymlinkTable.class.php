@@ -28,20 +28,24 @@ class SymlinkTable extends Doctrine_Table
         ->from('Symlink s')
         ->orderBy('s.created_at DESC')
         ->limit($limit);
-      $result = $q->execute();
-      $symlinks = $result->toArray();
+      $result = $q->execute(array(), Doctrine_Core::HYDRATE_ON_DEMAND);
+      $symlinks =
       $linkIds = array();
-      foreach ($symlinks as $symlink) {
-        $linkIds[] = $symlink['link_id'];
+      foreach ($result as $symlink) {
+        /* @var $symlink Symlink */
+        $symlinks[] = $symlink->toArray(false);
+        $linkIds[] = $symlink->link_id;
       }
-      $q = Doctrine_Query::create()
-        ->select('l.url')
-        ->from('Link l INDEXBY l.id')
-        ->whereIn('l.id', array_unique($linkIds));
-      $result = $q->execute();
-      $links = $result->toArray();
-      foreach ($symlinks as &$symlink) {
-        $symlink['url'] = $links[$symlink['link_id']]['url'];
+      if ($linkIds) {
+        $q = Doctrine_Query::create()
+          ->select('l.url')
+          ->from('Link l INDEXBY l.id')
+          ->whereIn('l.id', array_unique($linkIds));
+        $result = $q->execute();
+        $links = $result->toArray();
+        foreach ($symlinks as &$symlink) {
+          $symlink['url'] = $links[$symlink['link_id']]['url'];
+        }
       }
       return $symlinks;
     }

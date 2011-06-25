@@ -1,0 +1,95 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font: 16px arial, sans-serif;
+  text-align: center;
+}
+
+h1,h2,h3,h4 {
+  font: 64px tahoma, sans-serif;
+  margin: 15px 0;
+}
+
+h1 {
+  margin: 20px 0;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+table {
+  width: 100%;
+  border: 0;
+}
+
+input, button {
+  font: 30px arial, sans-serif;
+}
+
+input {
+  width: 40%;
+  max-width: 800px;
+}
+
+button {
+  padding: 0 5px;
+}
+
+form {
+  margin: 20px 0;
+}
+
+#freshList {
+  width: 50%;
+  max-width: 900px;
+  margin: 20px auto;
+  text-align: left;
+}
+
+#freshList table {
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+#freshList td, #freshList th {
+  padding: 3px;
+  font-size: 12px;
+  text-align: left;
+}
+
+tr.odd {
+  background: #f7f7f7;
+}
+
+thead {
+  background: #f1f1f1;
+  font-weight: bold;
+}
+
+.short {
+  width: 30%;
+}
+
+.long {
+  width: 50%;
+}
+
+.date {
+  width: 20%;
+}
+
+h4.error {
+  color: red;
+}

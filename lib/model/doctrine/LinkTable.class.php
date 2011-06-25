@@ -41,11 +41,22 @@ class LinkTable extends Doctrine_Table
       try {
         $link->save();
       }
-      catch (Doctrine_Connection_Exception $e) {
-        $link = $this->findOneByUrl($url);
-        $link->Symlinks[] = $symlink;
-        $link->save();
+      catch (Doctrine_Validator_Exception $e) {
+        foreach ($link->getErrorStack() as $fieldName => $errorCodes) {
+          if ($fieldName === 'hash') {
+            foreach ($errorCodes as $errorCode) {
+              if ($errorCode === 'unique') {
+                $link = $this->findOneByUrl($url);
+                $link->Symlinks[] = $symlink;
+                $link->save();
+                goto quit;
+              }
+            }
+          }
+        }
+        throw $e;
       }
+      quit:
       return $symlink;
     }
 }

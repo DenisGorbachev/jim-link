@@ -12,7 +12,6 @@ Link:
       type: string(32)
       fixed: true
       unique: true
-      readonly: true
     url:
       type: string(1024)
       notblank: true
