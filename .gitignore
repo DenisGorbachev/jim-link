@@ -2,3 +2,6 @@
 /nbproject/
 /cache/
 /log/
+.buildpath
+.project
+.settings/
